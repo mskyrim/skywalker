@@ -1,0 +1,103 @@
+Système de notation des entreprises:
+
+V2:
+
+Ajouter une API REST JSON qui permet de:
+- Avoir les engagements.
+- Avoir les entreprises.
+- Créer un simulateur pour tester les services.
+
+- Les engagements:
+	http://application.com/engagements/all					=> Touts les engagements
+	http://application.com/engagements/title/lorem			=> Touts les engagements dont le titre commence par lorem
+	http://application.com/engagements/date/7800980526		=> Touts les engagements dont la date de debut est superieur 
+																à la date en timestamp
+
+- Les entreprises:
+	http://application.com/corporations/all					=> Toutes les entreprises
+	http://application.com/corporations/name/lorem			=> Toutes les entreprises dont le nom commence par "lorem"
+	http://application.com/corporations/raiting/2.7			=> Toutes les entreprises dont la note moyenne est superieur à 2.7
+	http://application.com/corporations/deep/all/4			=> Toutes les entreprises avec leurs fournisseurs jusqu'au 
+																niveau 4 (-1 etant le niveau: infini)
+	http://application.com/corporations/deep/3/raiting/2.7	=> Toutes les entreprises dont la note moyenne est superieur à 2.7,
+																avec leurs fournisseurs jusqu'au niveau 4 (-1 etant le niveau: infini)
+
+
+											
+######## Technologie/Technique: ############
+Jersey + Jasckon (JSON)
+JQuery/AngularJs (pour le simulateur)				
+
+
+
+######## Data: ############
+
+- Format JSON d'un retour erreur:
+
+{'data': '', 'error_nb':5, 'message':''}
+
+	----------------------------------------------------------
+	| Erreur N° | description                                |
+	----------------------------------------------------------
+	| 0         | Pas d'erreurs                              |
+	----------------------------------------------------------
+	| 100       | Données introuvables (0 résultats)         |
+	----------------------------------------------------------
+	| 200       | Erreur technique DAO/SQL/DB                |
+	----------------------------------------------------------
+	| 300       | Erreur technique Runtime/Java              |
+	----------------------------------------------------------
+	| 400       | Erreur timeout (traitement trop long 30s)  |
+	----------------------------------------------------------
+	Les messages sont traduits en plusieurs langues.
+
+- Format JSON des erreurs:
+
+{'data': {'name': '','created_at': '','employee_nbr': '','services': ['','','']}, 'error_nb':0}
+
+
+- Format JSON des engagements:
+
+{'data':{
+    'title': '',
+    'created_at': '',
+    'begins_at': '',
+    'ends_at': '',
+    'description': '',
+    'corporations': [
+        {
+            'name': '',
+            'created_at': '',
+            'employee_nbr': '',
+            'services': [
+                '',
+                '',
+                ''
+            ]
+        },
+        {
+            'name': '',
+            'created_at': '',
+            'employee_nbr': '',
+            'services': [
+                '',
+                '',
+                ''
+            ]
+        },
+        {
+            'name': '',
+            'created_at': '',
+            'employee_nbr': '',
+            'services': [
+                '',
+                '',
+                ''
+            ]
+        },
+        
+    ]
+}, 
+'error_nb':0
+}
+

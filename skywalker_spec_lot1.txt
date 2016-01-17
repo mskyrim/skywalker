@@ -1,0 +1,68 @@
+Système de notation des entreprises:
+
+Ce système propose de noter les performances des entreprises par engagement (projet).
+
+Chaque entreprise est définit par:
+- Nom.
+- Type de préstation.
+- Date de création.
+- Effectif.
+
+Un engagement est definit par:
+- Titre de l'engagement.
+- Date de création.
+- Date de demarrage.
+- Date d'arrêt prévue.
+- Les entreprises participantes.
+- Description de l'engagement.
+
+Une entreprise peut avoir des entrepirses clientes, et des entreprise fournisseurs.
+
+Une entreprise est notée par rapport à un engameent, selon ces quatre critères (note/5):
+- Delais de reponse à l'appel d'offre.
+- Efficacité de la communication.
+- Respect des delais.
+- Respect du budget.
+- Qualité de la livraison.
+- Commentaire libre.
+
+######## Système/IHM: ############
+
+Le Système doit afficher les ecrants suivants:
+-Afficher les engagement (en cours/expirée/Non débutés)=page d'acceuil du système.
+-La page de détail de chaque engagement, qui affiche les données de l'engagement et la liste des entreprises engagées.
+-Le clique sur une entreprise passe à la page détaille de l'entreprise qui affiche:
+Les infos de l'entreprise, et une arborescence qui affiche l'entreprise et tous ses fournisseurs et les fournisseurs de ses fournisseurs (niveau indétérminé) comme sur le schema:
+				Entreprise 1
+				/	  | 	\
+			   Ent1  Ent3   Ent4
+			  /    \          |
+			Ent11  Ent12    Ent41
+							/  |  \
+						   /   |   \
+						Ent411 |  Ent413
+							  Ent412
+			.....................
+			.....................
+			.....................etc.
+
+- En bas de la page de detaille de l'entreprise, afficher l'évolution de la note de l'entreprise dans le temps (graphe).
+
+- Espace d'administration protégé par login, pour ajouter/modifier/supprimer des entreprises et des engagements.
+
+Règles:
+	- Ne pas pouvoir noter une entreprise qu'une fois l'engagement terminé.
+	- L'application est multilanguage/multiculture (séparateurs, et formats des dates/heures).
+	- Lors de l'édition d'un engagement ou entreprise dans l'espace admin, avoir un appérçu de l'engagement/entreprise tel qu'il sera affiché dans la partie public du site.
+	
+
+######## Technologie/Technique: ############
+- Plateforme: Heroku/Spring MVC.
+- Base de données Neo4J.
+- Système de cache Memcached ou Redis.
+- Graphe de l'evolution Google visualization: https://developers.google.com/chart/interactive/docs/gallery/motionchart?hl=fr
+- Graphe de des dependances entreprises (fournisseurs) Google visualization: https://developers.google.com/chart/interactive/docs/gallery/orgchart
+- Frotnend: Bootstrap/ ou Jesny Bootstrat (bootstrap extended): http://jasny.github.com/bootstrap/
+			pour accelerer, des snippets bootstrap: http://bootsnipp.com/
+			AngularJs pour le bindings formulaire/HTML/Javascript (pour l'appérçu direct).
+- Heberger le code source de l'appli dans Github (créer un repo, et commiter dans ce repo).
