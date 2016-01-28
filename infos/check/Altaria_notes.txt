@@ -1,0 +1,101 @@
+svn.keyrus.com/resources/hybris/
+
+*The resource classes use a feature called a GraphTransformer to convert a hybris Model to and from a DTO.
+
+*https://wiki.hybris.com/display/release5/ycommercewebservices+Extension+-+Technical+Guide
+
+*Docs : \\ZL005688\partage\altarea\kiosk\docs
+
+*https://addons.mozilla.org/fr/firefox/addon/restclient/
+*https://chrome.google.com/webstore/detail/simple-rest-client/
+
+http://svn.keyrus.com/repository/Altarea/Kiosk/trunk/build/config-dev
+
+http://localhost:9001/kioskws/v1/electronics/products?query=camera
+
+http://localhost:9001/kioskws/v1/electronics/cart
+
+http://localhost:9001/kioskws/v1/electronics/cart/entry
+
+http://stackoverflow.com/questions/10358345/making-authenticated-post-requests-with-spring-resttemplate-for-android
+
+JSON mapping : http://jackson.codehaus.org/1.8.8/javadoc/org/codehaus/jackson/map/DeserializationConfig.Feature.html
+http://blog.jdriven.com/2012/11/consume-rest-json-webservices-easily-using-spring-web/
+GSON
+Enum deserialize :  http://stackoverflow.com/questions/16446619/how-to-ignore-enum-fields-in-jackson-json-to-object-mapping
+
+To convert from java DTO to Json : http://code.google.com/p/google-gson/
+
+Pstman : chrome-extension://fdmmgilgnpjigdojojpjoooidkmcomcm/index.html
+
+chrome-extension://hgmloofddffdnphfgcellkdfbfbjeloo/RestClient.html#RequestPlace:default
+
+repo : http://svn.keyrus.com/repository/Altarea/Kiosk/trunk/src
+
+RDC : http://api.rueducommerce.fr/Account/Preference/?apikey=0123456789
+http://api.rueducommerce.fr/Account/Customer/?apikey=0123456789
+
+http://localhost:9001/api/electronics/kiosk/1/customers/current/forgottenpassword
+
+
+Argument 1 passed to common\Resource::create() must be an array, null given, called in /RDC/web/prod_hightech/public_html/application/api/core/API/Account/Customer.php on line 257 and definedArgument 1 passed to core\API\Account\Authentification::_createResource() must be an array, null given
+
+https://api.rueducommerce.fr/client/email_password.cfm
+http://api.rueducommerce.fr/client/email_password.cfm
+http://localhost:9001/api/electronics/kiosk/1/current/forgottenpassword
+http://localhost:9001/api/electronics/kiosk/1/customers/current/forgottenpassword
+
+https://wiki.hybris.com/display/release5/Using+Facades+and+DTOs+-+Best+Practice
++ "} WHERE {" + CategoryModel.CATALOGVERSION
+			+ "} = ?catalogId";
+
+-- Hybris model --			
+https://wiki.hybris.com/display/pe/hybris+Basic+Domain+Diagrams
+https://wiki.hybris.com/display/release5/Include+-+BaseStore
+
+--------------
+*https://wiki.hybris.com/display/release5/Modeling+Product+Variants
+
+SELECT DISTINCT {c.pk} FROM {BaseSite} AS s JOIN StoresForCMSSite AS sfs ON {s.pk} = {sfs.source} JOIN BaseStore AS bs ON {sfs.target} = {bs.pk}  JOIN CatalogsForBaseStores As cfs ON {bs.pk} = {cfs.source} JOIN Catalog As c ON {cfs.target} = {c.pk} 
+
+final List<CatalogModel> resultList = service.getProductCatalogs(baseSite);
+		resultList.get(0).getActiveCatalogVersion().getRootCategories()
+		a-178-05NELPDM0004
+		a-178-SAMSUNG-UE65H6400
+		
+		o-178-samsung-ue65h6400
+		o-178-05NELPDM0004
+		
+Integration : http://kiosk.integ.keyrus.info/api/kiosk/KIOSK1/conf
+
+-- Ludendo --
+http://localhost:9001/ludendo/Brands/adidas/c/adidas
+http://localhost:9001/ludendo///c/jouets
+4111111111111111 / 111
+http://localhost:9001/ludendo/Jouets/La-Grande-R%C3%A9cr%C3%A9-BEBE-0-12-Mois/Cadeaux-naissance/Doudous//p/30044_S40
+http://confluence.keyrus.com/pages/viewpage.action?pageId=5313229
+
+http://api.socloz.com/doc/en/widget
+
+30044_S10
+
+ludendo-CartRemovalJob
+ReleaseStock_CronJob
+
+http://ludendoweb.qualif.keyrus.info
+admin/keyrus@lgr2013
+
+-----------
+http://bamboo.keyrus.com/project/viewProject.action?projectKey=ALTBD
+http://bamboo.keyrus.com/chain/result/viewChainLog.action?buildKey=LUDWEB3-COMPINC&buildNumber=1724
+
+http://localhost:9001/hmc/hybris?wid=MC0x0&prgrequest=true&MC0x2_!DISPLAY=MC0x211&MC0x211_!DISPLAY=001
+http://confluence.keyrus.com/display/ALTBD/4.6+Installation+Interface+Borne+Shopping+Wall
+
+http://svn.keyrus.com/sonar/drilldown/violations/14505?rids[]=15740&rule=pmd%3AUnusedPrivateField&rule_sev=MAJOR&severity=MAJOR#
+http://localhost:9001/hac/platform/init
+https://wiki.hybris.com/dashboard.action
+
+Free : 0146401423
+
+Join exaple : DefaultEmailPageDao

@@ -1,0 +1,79 @@
+--Jira Keyrus : 
+http://confluence.keyrus.com/display/WIKI/Prise+en+main+de+KeyCom
+http://confluence.keyrus.com/display/WIKI/Configuration+eclipse
+mdardani/keyrus2013
+--Jira Chap : http://usine.supreme.chapitre.com/jira
+http://usine.supreme.chapitre.com/jira/secure/RapidBoard.jspa?rapidView=1&selectedIssue=KISS-1532
+mehdi.dardani/keyrus
+VTE_KIS_POM_CFY
+-- Timesheet--
+http://usine.supreme.chapitre.com/jira/secure/Dashboard.jspa
+http://jira.keyrus.com/secure/Dashboard.jspa
+
+-- SVN Keyrus--
+mdardani/jaeZei1T--
+mdardani/keyrus2013--- New sonar
+IT ticket : https://frparssp02/int_pages/welcome.aspx
+--
+partage CRA : \\Frparsfs03\Common\eCommerce\
+Hosts : c:\Windows\System32\drivers\etc\
+--
+http://localhost:8085/chapitrestorefront/
+HMC : http://localhost:8085/hmc/hybris?wid=MC0x0&prgrequest=true&MC0x2_!DISPLAY=MC0x12 : nimda
+HAC : http://localhost:8085/admin : nimda2013
+CMS : http://localhost:8085/cmscockpit/login.zul ==> cmsmanager/chaPitre2013
+Recette : http://recette.supreme.chapitre.com/chapitrestorefront/cscockpit/index.zul
+--
+CS Agent :http://localhost:8085/cscockpit/login.zul
+log : csagent/chaPitre2013
+Info CS agent : http://confluence.keyrus.com/display/WIKI/Personnalisation+de+Cockpit+pour+les+nuls
+D:\chapitre\hybris\config\customize\ext-channel\cscockpit\web\webroot\cscockpit\csPaymentWizard
+--
+Product cockpit
+http://localhost:9001/productcockpit/
+
+Kiss Qualif : 
+http://kissqualif.keyrus.info/chapitrestorefront/
+https://kissqualif.keyrus.info/hmc/hybris?wid=MC12x0&prgrequest=true&MC12x2_!DISPLAY=MC12x237&MC12x237_!DISPLAY=001
+--
+-compte : dardani.mehdi@gmail.com/keyrus2013
+-cms cockpit : cmsmanager/chaPitre2013
+
+Résolu suite au dernier initialize. 
+SVN : http://usine.supreme.chapitre.com/svn/repository/SUPREME/KISS/trunk
+
+
+#nav_main ul li li.Lb
+#nav_main ul li li.Lb a:link,#nav_main ul li li.Lb a:visited
+
+--1323--
+mehdi.dardani@keyrus.com/keyrus
+
+--
+com.actissia.chapitre.facades.process.email.context
+
+
+http://localhost:8085/chapitrestorefront/Pierre-Louys/Le-nom-de-la-femme/Broch%C3%A9/p/9782847951585
+
+chapitre : mehdi.dardani svn123
+SVN kyrus : mdardani jaeZei1T
+
+SVN : D:\Users\mehdi.dardani\AppData\Roaming\Subversion
+
+Sprint 8.1 : http://usine.supreme.chapitre.com/jira/secure/RapidBoard.jspa?rapidView=1&view=planning
+
+Kiss 1571 : Selection of mode of delivery on IE8 / Google Chrome
+
+-ChapitreCancelOrderEventListener
+-.OrderEntryStatusUpdateInterceptor.onValidate
+
+055-HG96-8W9B-7G3E
+
+Ratp
+25753312/Mdardani2015
+
+http://www.ratp.fr/itineraires/fr/ratp/resultat-detaille/start/La+D%C3%A9fense+%28Grande+Arche%29+%28METRO%29%2C+Puteaux/end/Avenue+de+l%27Ile+Saint-Martin%2C+92000%2C+Nanterre/is_date_start/1/date/2013-08-24/time/07%3A45%3A00/route_type/plus_rapide
+
+
+
+ 

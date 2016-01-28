@@ -1,0 +1,362 @@
+-- IMP --
+*After adding a new extension, update the file extensioninfo.xml in hybris/config then you have to add the dependent ext to the classpath via eclipse.
+*Hybris developpement is model driven dev style.
+*Data Models are defined in the <extension>-items.xml file of each extension. Essentially data entities (called "items" in hybris).
+*considere to update eclipse buildPath & extensioninfo.xml of the extension to relate the extension via the tag <required-extention> as the first element within the extension element.
+*http://localhost:9001/hmc/hybris
+*that you have to do an hybris update via hac after adding new type/attribute definitions in the xx-items.xml file.
+*type definitions should involve type system localization.
+*DB Trail : https://wiki.hybris.com/display/tr50/Trail+~+Browsing+the+Database#.
+
+*The DAO uses hybris' Flexible Search Query to construct its queries.
+*Hybris tests Junit class that needs to access to DB(no use of mocks) should extends from ServicelayerTransactionalTest class.
+*PB resolve : 
+if you get BeanCreationException: Error creating bean with name 'marshaller' ==> 1-check that your master Junit tenant is initialized 2-run ant clean all.
+
+--Facades --
+*declare the DTO as spring beans in the <ext>-beans.xml, then run ant all to generate the appropriates classes.
+
+--Spring MVC--
+*Declare the DispatcherServlet in the web.xml.
+*Declare the <ext>-servlet.xml for viewResolver.
+-- CronJob--
+*the job classes extends AbstractJobPerformable<CronJobModel>
+*After creating the job class and runing build successfully, we have to run an update from the server with "data settings" checked befor runing the job triggers.
+*an job class must be declare as a bean spring in the <ext>-spring.xml file.
+*You can check in the FlexibleSearch console: http://localhost:9001/console/flexsearch
+
+--Cockpit--
+*After adding new xml configuration files, build and do a system update, selecting project data of cuppytrailcockpit.
+*"editorArea_Stadium.xml"
+The name as well as the path are very important and must follow the convention for cockpit UI configuration import files.
+Adhering to the naming and path convention ensures that files are imported automatically during system init or update in the project data phase.
+The first part of the filename - "editorArea" - tells the system that the configuration is for the editor area. The second part after the underscore - "Stadium" specifies the type code the configuration should be applied to. The last part of the
+path - "cuppyadmins" - determines the user or user group the configuration should be applied to. 
+
+--Adding liks to Cockpit commerce--
+http://localhost:9001/mcc/index.zul
+*In order to add either static or dynamic Links to cockpit commerc MCC we have to create the essentialdataMcc.impex file in ressource/impex folder.
+
+--Events--
+*Events class extends from AbstractEvent
+*Interceptor class implements ValidateInterceptor, PrepareInterceptor.
+*An interceptor need to be declared as a Spring bean in the <ext>-spring.xml file, after that we have to map it via InterceptorMapping class.
+*To consume events, an event listener needs to be created and registred as a spring bean.
+*Events are by default processed in a synchronous way, to make it asynchronous use cluster aware events.
+*To implement a ClusterAwareEvent, modify the CapacityEvent class by adding implements ClusterAwareEvent and the method publish() which causes events to be published only to the source node of the event
+
+--Data validation--
+http://localhost:9001/admincockpit/index.zul
+*Custom validation steps :
+	-Create an annotation constraint.
+	-Create an implementation of that annotation.
+	-Delare the constraint as an items in the <ext>-items.xml
+	-ant all updatesystem -Dtenant=master
+
+--Media conversoin--
+*Create media format in hmc.
+*media group that contains media formats.
+*Load your media with impex script
+*create media container.
+*Create media->Define media conversion format->create conversion group->media container->convert media.
+
+---Hybris Ecomerce--
+
+--Dynamic attributes--
+*Are calculated attributes, they are not persisted to db, but evaluated in a specialized bean..
+*to declare in <ext>-items. xml with the mention "dynamic" at the persistence tag.
+*hv to create a handler class that implments the inteface DynamicAttributeHandler<Type,Model>, implement methode get/set.
+*hv to declare the handler as a spring bean <ext>-spring.xml
+
+--Data import across the accelerator extensions
+*The accelerator provides two dedicated initialization hooks that allow you to import your custom data : 
+core data hook - in our namespace that is the CoreSystemSetup class in merchandisecore extension.
+sample data hook - in our namespace that is the InitialDataSystemSetup class in merchandiseinitialdata extension.
+
+-- Visual - Customizing Product Page ---
+*after delaring a DTO item, you have to create a populator in order to make matching between DTO and dataModel.
+*Create the populator in the package facades.poputators in the facade extention.
+*the populator implements Populator<ProductModel, MerchandiseProductData> interface that expose the methode populate.
+*You have to declare the populator as a spring bean in the <ext>-spring.xml.
+
+https://wiki.hybris.com/display/release5/FlexibleSearch+Samples
+
+-- Add Custom Properties to the SOLR index--
+*Create Range values ==> rangeValueSet ==> Index property
+*localize the new indexed propery
+*Value Provider Implementation : wich is a java class
+
+-- Add CMS component via AddOn --
+CMS cockpit : http://localhost:9001/cmscockpit/login.zul
+
+*Create a custom AddOn based on the yaddon template.
+*your addon still indepentente until you make dependancies.
+*after terminating your addon you can integrate it in you facade ext as <required> dependancy in the infoextention.xml
+*you can create your own CMS componante(see trail).
+*Create a cockpit configuration for the content editor :
+	-Customization files are loaded using the "convention over configuration" pattern.
+	-The location of the file is very important. It will determine which user groups will be able to see the customization.
+	-The file name determines which portion of the cockpit will be modified and for which type.
+	
+-- Advanced Personalisation ---
+* AP uses  Customer Segments in order to customize your site presentation regarding the customer's profile, preferences, contexte.
+*AP allows you to focus the site presentation on segments of customers in order to increase benifits.
+* AP base on CS rules & related Actions :
+-Customer Segment Rules: Create one rule or create several rules that would contain specific conditions for the customers in order to clasify them into personalized groups.
+-Output Actions: Action triggered depending on the success of the segment rules fulfillment.
+
+
+---- Personalizing Prices---
+*we personalize products price regarding customer group by: 
+	-create a customer group.
+	-create a price group list and assign it the the customer group.
+	
+-- Order fulfilment process---
+*in order to personalize the order processe we have to create a new extention based on yacceleratorfulfilmentprocess.
+*this ext contains all the events rised in the order process, there listners are implemented in the package core.events in the core extention.
+*order-process.xml contains the definition of the process order.
+*Exp : <action id="checkOrder" bean="checkOrderAction">
+		<transition name="OK" to="nextActionId"/>
+		<transition name="NOK" to="error"/>
+	   </action>
+	   
+*Usually each order fulfilment action transfers order from one state to another.
+*la methode getModelService() permet de recuperer le modelService pour faire les ops de persistance(refresh, save...)
+	4111111111111111
+	
+*OrderStatus is the enum that represents the status possible for an order
+*an Action extends from Abstract order & implements the execute methode that take a BusinessProcessModel as arg.
+*we can get the orderModel from BusinessProcessModel by calling the methode getOrder()
+*we can get the actual order status by calling orderModel.getStatus().
+
+--OrderCancel - Default Mapping Strategy--
+*Order Cancel Service is designed to support Order Management Module by adding the functionality of canceling the orders.
+*use the hybris utility class ServicesUtil to do methods args validation.
+*use getUserService().getCurrentUser() to get CustomerModel representing the current user.
+*use baseStoreService.getCurrentBaseStore() to get the current baseStore instance.
+*use getCustomerAccountService().getOrderForCode(user, orderData.getCode(),baseStoreService.getCurrentBaseStore()) to get orderModel.
+*use getOrderCancelService().isCancelPossible to get CancelDecision instance in order to check if the order cancellation is allowed.
+*use getOrderCancelService().requestOrderCancel(cancelRequest, user) to send a cancel order request.
+
+-- Conseignement ---
+*when an order is validated, it's sent to the warehouse wich take the task of order's entry expidition.
+*an expidition may be splited into multi conseignement.
+*an conseignement is a "colis" that contain's conseigment entries (products).
+
+https://wiki.hybris.com/display/release5/OrderCancel+-+Default+Mapping+Strategy
+
+-- Promotions --
+*Promo : product level - order level.
+*Promotions are created and edited through the hMC.
+*Promotions may be prevented from being activated under specific conditions by adding restrictions :
+	- Date restrictions: Promotions have a start date and an end date. A promotion may only be activated between the start and end dates.
+	- Product restrictions: Product restrictions prevent promotions from being activated if the shopping cart or order contains any of the products specified.
+	- User and Usergroup restrictions: Both user and usergroup are principals.
+*Each Promotion has a priority and promotions are evaluated in priority order, highest priority first.
+*for each type of promo, hybris will add an order level discount and pro-rate the totals for each consumed item.
+
+---Ecom Exercice ---
+Where does the product prices for USD come from?  == store.impex of the initialData ext.
+
+-- (Use MySQL Administrator or add 'innodb_flush_log_at_trx_commit=0' to your my.cnf) C:\ProgramData\MySQL\MySQL Server 5.6
+
+--1332
+CheckoutPagesController.java : 701 : finalConfirmation(Model, PaymentDetailsForm, BindingResult)
+1114 validatePaymentForm
+
+formInputBox.tag
+change.css
+
+Spring data JPA
+http://www.hibernate.org/subprojects/tools.html
+-----
+http://localhost:8085/chapitrestorefront/Fran%C3%A7oise-Gri/L-entreprise-r%C3%AAv%C3%A9e-des-jeunes/Broch%C3%A9/p/9782212547566
+
+---
+livre ocas : 2355930376
+livre neuf : 9782081241312
+
+---------------------
+IMP : pour tt changement sur les cs Cockpit il faut modifier dans la branche config (
+D:\chapitre\hybris\config\customize\ext-channel\cscockpit\web\webroot\cscockpit\csPaymentWizard )
+pour les changement au niveau des ZUL il lancer la cmd : ant clean customize all : afin de prendre en charge les modif.
+N'oublier pas de dupliquer les modifs sur les differents Config(dev,test..) voir mail salah.
+
+- personalizations of CsCockpit are defined as xml files in the ext cscockpit > resources > cockpit > import > config. After modif we have to do an update(deconect/reconect csagent to see changes).
+
+-To add a new promo, take care of the attribute baseStore in the hmc (take chapitrebase)
+
+- In order to make sur that the solr search take's the modification, go to hmc>system>facette search>Indexer operation wizard 
+
+- For all cutomer mail confirmation, see CustomerEmailContext for dynamic var setting (the email format have velocity vm format).
+(package : com.actissia.chapitre.facades.process.email.context).
+
+- Email sending are orgnized as process defined as xml files in core > resources > process, this processes are rised via EventListners or Inreceptors (cf : ChapitreShipmentOrderEventListener) 
+
+- To see sent emails in the HMC, System > Business process .
+
+- OrderStatusImport_CronJob for Shipment import stream (INF_KIS_STS_UPDATE).
+=> test process : -1 passe cmd -2 add file *INF_KIS_STS_UPDATE_0.dat to interfece/IN folder, then modify order number and shipment status -3 run the cronjob OrderStatusImport
+
+- VIMP: The initialize process takes care of impex file defined in the methode importStore(..) in the classe CoreSystemSetup
+
+- In order to validate order RefunProcess(rembourecement) we have to pay with CC our order with no promotion.
+
+- For GiftCard payment use cadrs marked in the excel file in \\Frparsfs03\Common\eCommerce\Projets\Chapitre\Documents Techniques
+
+- Customer registration class RequestProcessHelper.
+
+- CMS cockpit : after mofiying a vm template, we have to run the impex update order regading the modified template(see cms-content.impex) in order to see the modification.
+				- pour afficher la carousel sur le site il faut visiter un article.
+
+-- CXF with JSON --
+http://info.appdirect.com/blog/how-to-easily-build-rest-web-services-with-java-spring-and-apache-cxf
+----
+EMmail KO : http://confluence.keyrus.com/display/KISS/HowTo+install+release
+
+--
+ confluence.keyrus.com/display/WIKI/Personnalisation+de+Cockpit+pour+les+nuls
+ http://confluence.keyrus.com/display/WIKI/Configuration+eclipse
+--
+https://www.dartlang.org
+http://momentjs.com/
+http://www.odata.org/
+http://cdn.dzone.com/sites/all/files/refcardz/rc024-corejava_online.pdf
+http://cdn.dzone.com/sites/all/files/refcardz/rc008-designpatterns_online.pdf
+Plugin eclipse :http://blog.octo.com/25-minutes-pour-creer-un-plugin-text-editor-pour-eclipse/
+http://en.wikipedia.org/wiki/List_of_free_and_open_source_software_packages
+update : https://wiki.hybris.com/display/release5/Initialization+and+Update+of+the+hybris+Commerce+Suite
+--
+select {pk}, {emailsToSend} from {Order} where {emailsToSend} is not null {modifiedtime} >= ?startDate AND {modifiedtime} <=?endDate
+
+SELECT {Order:pk} FROM {Order} WHERE {Order:emailsToSend} IS NOT NULL AND {Order:modifiedtime} >= ?startDate AND {Order:modifiedtime} <=?endDate], query parameters: [{startDate=1377699149000, endDate=1377699097855}]
+--
+INSERT_UPDATE CronJob;code[unique=true];active;job(code);emailAddress;sessionLanguage(isocode);priority;singleExecutable;removeOnExit;retry;changeRecordingEnabled;requestAbort;logToFile
+;NotificationGenerator_CronJob;true;notificationGenerationJob;;fr;4;false;false;true;true;false;true
+
+---
+X:\eCommerce\Projets\Chapitre\40_V2\PSDs\FINAL\2700_emailing
+---
+
+Repo : http://usine.supreme.chapitre.com/svn/repository/SUPREME/KISS/trunk/src/hybris/bin/custom
+
+http://www.objectaid.com/update
+
+LOT2 :MDD
+http://confluence.keyrus.com/download/attachments/6818623/Keyrus_RDC_DayOne_MDD_global_20141021_v0.5.6.png?version=1
+8796093153881
+eclipse:
+http://confluence.keyrus.com/pages/viewpage.action?title=Configuration+eclipse&spaceKey=WIKI
+
+Solr FS :
+product : http://localhost:8150/solrfacetsearch/master_rdc_Product/select?%20start=0&rows=30&facet=true&sort=modifiedtime_sortable_date%20desc&facet.mincount=1&facet.limit=500&facet.sort=count&hl.fl=*&hl=true
+		  http://localhost:8150/solrfacetsearch/master_cockpit_Product/select?%20&start=0&rows=30&facet=true&q=%28itemtype_string:Article%29&fq=%28code_string:
+/solrfacetsearch/master_cockpit_Product/select?&start=0&rows=30&facet=true&facet.field=availability_string_mv&facet.field=supercategories_string_mv&facet.field=catalogVersion_string&facet.field=itemtype_string&facet.mincount=1&facet.limit=500&facet.sort=count&hl.fl=*&hl=true&q=(code_string:a-178-toshiba-40L2433)&fq=(catalogVersion_string:8796093186649)&fq(itemtype_string:(BundleOffer OR AbstractOffer OR VirtualOffer OR PhysicalOffer OR BundleArticle OR Article))
+
+categ  : http://localhost:8110/solrfacetsearch/master_cockpit_Category/select?start=0&rows=30&facet=true&q=%28itemtype_string:ClassificationClass%29&fq=%28catalogVersion_string:8796093219417%29
+
+
+----grooovy:---
+ctx.getBean("cachingWordPressFacade").getCategoryInfo("33")
+ctx.getBean("cachingWordPressFacade").getArticleListByCategory("33",2)
+ctx.getBean("defaultWordPressFacade").getArticleListByCategory("33",2)
+
+context.getBean("erosCartService").createCart("")
+context.getBean("erosCartService").addToCart("395655326","1","")
+
+context.getBean("erosCartService").getUserWishList("da03e46482cd4a7bec3587211b8e5c52b8f728fd")
+
+context.getBean("moduleSynchWS").importRunOffers(null)
+
+println   spring.getBean("tenantId")
+println   spring.getBean("hotFolderDirectory")
+
+context.getBean("mediaShareWsFacade").uploadPostRequest("Hybris","https://www.google.fr/logos/doodles/2015/anna-atkins-216th-birthday-5710044637167616.3-hp.jpg")
+select {t.productCode} from {MediaOnUplaod as t}
+
+context.getBean("mediaShareWsFacade").uploadGetRequest("dam55071061d22e1")
+
+http://ws-preprod.wideip/REST/CanonicalOrAlternate/?apikey=0123456789&url=http%3A%2F%2Fm.preprod.rueducommerce.fr%2F&type=canonical
+
+-- Eh cache ----
+in order to use ehcach monitor :
+-> uncomment ehcache.xml code
+-> use the string kay genrator in ydtocache-spring-cache.xml
+-> use the default key generator instead of the wp key gen rdcwordpressaddon-spring.xml
+-> cd D:\dayoneProject\ehcache-monitor-kit-1.0.3-distribution\ehcache-monitor-kit-1.0.3\bin
+startup
+
+-> http://10.2.101.47:9889/monitor/
+
+-- Keyrus cong eclipse ---
+http://confluence.keyrus.com/pages/viewpage.action?title=Configuration+eclipse&spaceKey=WIKI
+
+-------------- Jax-B ------------------
+http://confluence.keyrus.com/pages/viewpage.action?title=How+To%3A+Convert+XML2Java+Using+JAXB&spaceKey=WIKI
+
+
+git clone git@git.rueducommerce.fr:dayone.git
+
+select {m:pk} from {Media as m} where {m:modifiedtime} >= '04/10/2015 1:33:24 PM'
+
+SAP
+Mdardani/midoland2014
+
+Tunisie :  01 80 88 99 23
+
+IMP : classification discriminant attribute
+
+src\hybris\bin\custom\rdcfacades\resources\rdcfacades-beans.xml
+src\hybris\bin\custom\rdcfacades\resources\rdcfacades-spring.xml
+src\hybris\bin\custom\rdcfacades\src\com\altarea\rueducommerce\facades\populators\MatrixVariantPopulator.java
+src\hybris\bin\custom\rdcfacades\src\com\altarea\rueducommerce\facades\populators\AcceleratorVariantOptionDataPopulator.java
+/rdcfacades/src/com/altarea/rueducommerce/facades/populators/RdcVariantOptionDataPopulator.java
+src\hybris\bin\custom\rdcfacades\src\com\altarea\rueducommerce\facades\utils\ClassAttributeAssignmentComparator.java
+src\hybris\bin\custom\rdcstorefront\web\src\com\altarea\rueducommerce\storefront\controllers\pages\ProductPageController.java
+src\hybris\bin\custom\rdcstorefront\web\src\com\altarea\rueducommerce\storefront\controllers\pages\ProductPageRESTController.java
+src\hybris\bin\custom\rdcstorefront\web\webroot\_ui\desktop\common\js\rdc\custom\refresh.js
+
+
+Solr :
+http://localhost:8110/solrfacetsearch/master_cockpit_Category/select?start=0&rows=30&facet=true&q=%28itemtype_string:ClassificationClass%29&fq=%28catalogVersion_string:8796093219417%29
+
+
+Doc Job :
+https://jira.rueducommerce.fr/browse/DSDA-1197
+
+mongod.exe --dbpath d:\mongodb\data
+
+http://dayone.tests.keyrus.info/log/hybris.log
+
+----grooovy:---
+spring.getBean("cachingWordPressFacade").getCategoryInfo("33")
+ctx.getBean("cachingWordPressFacade").getArticleListByCategory("33",2)
+ctx.getBean("defaultWordPressFacade").getArticleListByCategory("33",2)
+
+bash 1:
+curl localhost:8140/rdc/hystrix.stream
+
+bash 2:
+$ git clone git@github.com:Netflix/Hystrix.git
+$ cd Hystrix/hystrix-dashboard
+$ ../gradlew jettyRun
+> Building > :hystrix-dashboard:jettyRun > Running at http://localhost:7979/hystrix-dashboard
+
+--- Eviction Policy -----
+FIFO, LFU, LRU
+
+-- Eh cache ----
+in order to use ehcach monitor :
+-> uncomment ehcache.xml code
+-> use the string kay genrator in ydtocache-spring-cache.xml
+-> use the default key generator instead of the wp key gen rdcwordpressaddon-spring.xml
+-> cd D:\dayoneProject\ehcache-monitor-kit-1.0.3-distribution\ehcache-monitor-kit-1.0.3\bin
+startup
+
+-> http://10.2.101.47:9889/monitor/
+
+-> JMX : localhost:8152
+
+DefaultCMSPageSlotComponentService
+
+cmscockpit-services.xml

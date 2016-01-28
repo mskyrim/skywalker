@@ -1,0 +1,9 @@
+﻿else if($('#loadCreditCardHiddenForm').attr('checked')){
+			hideAllPaymentErrors();
+			if((jQuery("[id='payment.nameOnCard']") !=null && jQuery("[id='payment.nameOnCard']") !== 'undefined') 
+					&& (jQuery("[id='payment.nameOnCard']").val()==null || jQuery("[id='payment.nameOnCard']").val().trim()=='')){
+				jQuery("[id='payment.nameOnCard']").addClass("form_field_error");
+			}
+			
+			paymentModeChecked = true;
+		}

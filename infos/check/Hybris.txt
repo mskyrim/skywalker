@@ -1,0 +1,58 @@
+Mehdi.Dardani@keyrus.com/Midoland2018
+
+Access :
+http://jira.keyrus.com/secure/Dashboard.jspa
+mdardani/keyrus2013
+
+login outlook : KEYRUSCORP\mehdi.dardani
+	
+https://wiki.hybris.com/display/release4/End+User
+
+https://wiki.hybris.com/display/acctr46/hybris+e-Commerce+Trail+Home+Page
+
+https://hs-ws1.oracle.com/RegistrationWeb/registration/default/en_US/register-login.jsp?legacy=true&tgtPrd=jdk&prd=registration&uuid=urn%3Ast%3Aa1714485-ed08-44e5-ae99-ef30d485264c&tgtVer=7
+
+http://www.allocine.fr/film/fichefilm_gen_cfilm=9400.html
+
+Hybris : Midoland2015
+
+CRA : \\Frparsfs03\Common
+
+
+http://hybris.local:9001/merchandisestorefront/?site=hybris
+
+IT : https://frparssp02/IS/Documents/Helpdesk_FR.aspx
+
+http://www.reverso.net/orthographe/correcteur-francais/
+
+06 98 08 56 80
+
+http://bellsouthpwp.net/b/i/billsigg/jstl-quick-reference.pdf
+
+http://static.springsource.org/spring/docs/1.2.9/reference/beans.html
+
+
+ant clean cleanjalo customize all initialize -Dtenant=Master
+ant clean customize all initialize -Dtenant=Master
+
+ant patchProductcockpit
+
+
+Ludendo: 2 avenue Clément ADER - Z.A.C du Prieure Ouest - CS 30417 Serris - 77706 Marne la Vallée
+
+Angular
+https://wiki.hybris.com/display/~esfandiar.amirrahimi@hybris.com/2013/09/13/An+Angular+Experiment?focusedCommentId=213102356#comment-213102356
+
+
+deliveryAddress
+$('#paymentDetailsForm').bind
+
+.form_field_error
+
+
+https://wiki.hybris.com/display/release5/How+To+Create+and+Register+a+New+Perspective+-+Tutorial
+
+-- SOLR Indexation Media --
+To restrict the indexation on only Media type use the "!" mark after the media query like "SELECT {m:PK} FROM {Media! AS m}". this will filters all the subtypes of media during the solr indexation.
+the idex will be focused and faster.
+-"SELECT {m:PK} FROM {Media! AS m}" ==> SQL "SELECT  item_t0.PK  FROM medias item_t0 WHERE (item_t0.TypePkString=? )"
