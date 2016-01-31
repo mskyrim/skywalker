@@ -1,4 +1,4 @@
-package com.skyrim.domain;
+package skyrim.domain;
 
 import java.util.Date;
 
