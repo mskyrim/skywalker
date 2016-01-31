@@ -1,17 +1,27 @@
 package skyrim.domain;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class Entreprise {
+public class Entreprise implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
@@ -20,6 +30,16 @@ public class Entreprise {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateCreation;
 	
+	@OneToMany(mappedBy="entreprise", fetch=FetchType.LAZY)
+	@Column(name="idEntreprise")
+	private List<EntrepriseReport> reports;
+	
+	public List<EntrepriseReport> getReports() {
+		return reports;
+	}
+	public void setReports(List<EntrepriseReport> reports) {
+		this.reports = reports;
+	}
 	public Long getId() {
 		return id;
 	}

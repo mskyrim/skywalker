@@ -1,11 +1,20 @@
 package skyrim.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
-public class EntrepriseReport {
+@Entity
+public class EntrepriseReport implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column()
@@ -17,6 +26,24 @@ public class EntrepriseReport {
 	private int deliveryQuality;
 	private String comment;
 	
+	@ManyToOne(fetch=FetchType.EAGER)
+	private Entreprise entreprise;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	private Engagement engagment;
+	
+	public Entreprise getEntreprise() {
+		return entreprise;
+	}
+	public void setEntreprise(Entreprise entreprise) {
+		this.entreprise = entreprise;
+	}
+	public Engagement getEngagment() {
+		return engagment;
+	}
+	public void setEngagment(Engagement engagment) {
+		this.engagment = engagment;
+	}
 	public Long getId() {
 		return id;
 	}
